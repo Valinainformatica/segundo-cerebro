@@ -1,6 +1,3 @@
-const API_URL = process.env.NEXT_PUBLIC_API_URL!;
-const API_KEY = process.env.NEXT_PUBLIC_API_KEY!;
-
 export interface DocMeta {
   id: string;
   filename: string;
@@ -19,16 +16,14 @@ export interface DocFull extends DocMeta {
 }
 
 export async function fetchDocs(): Promise<DocMeta[]> {
-  const res = await fetch(`${API_URL}?action=list&key=${API_KEY}`, {
-    cache: "no-store",
-  });
+  const res = await fetch("/api/docs?action=list", { cache: "no-store" });
   const data = await res.json();
   if (!data.success) throw new Error(data.error);
   return data.docs;
 }
 
 export async function fetchDoc(id: string): Promise<DocFull> {
-  const res = await fetch(`${API_URL}?action=get&id=${id}&key=${API_KEY}`, {
+  const res = await fetch(`/api/docs?action=get&id=${id}`, {
     cache: "no-store",
   });
   const data = await res.json();
