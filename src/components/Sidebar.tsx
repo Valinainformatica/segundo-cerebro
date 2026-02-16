@@ -1,6 +1,7 @@
 "use client";
 
 import type { DocMeta } from "@/lib/api";
+import { logout } from "@/lib/api";
 
 const CATEGORY_ICONS: Record<string, string> = {
   proyecto: "📁",
@@ -68,16 +69,33 @@ export default function Sidebar({
               Segundo Cerebro
             </h1>
           </div>
-          <button
-            onClick={onRefresh}
-            className="p-1.5 rounded-md hover:bg-surface-hover transition-colors text-muted hover:text-foreground"
-            title="Refrescar"
-          >
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-              <path d="M21 2v6h-6"/><path d="M3 12a9 9 0 0 1 15-6.7L21 8"/>
-              <path d="M3 22v-6h6"/><path d="M21 12a9 9 0 0 1-15 6.7L3 16"/>
-            </svg>
-          </button>
+          <div className="flex items-center gap-1">
+            <button
+              onClick={onRefresh}
+              className="p-1.5 rounded-md hover:bg-surface-hover transition-colors text-muted hover:text-foreground"
+              title="Refrescar"
+            >
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                <path d="M21 2v6h-6"/><path d="M3 12a9 9 0 0 1 15-6.7L21 8"/>
+                <path d="M3 22v-6h6"/><path d="M21 12a9 9 0 0 1-15 6.7L3 16"/>
+              </svg>
+            </button>
+            <button
+              onClick={() => {
+                if (confirm('¿Cerrar sesión?')) {
+                  logout()
+                }
+              }}
+              className="p-1.5 rounded-md hover:bg-red-500/10 transition-colors text-muted hover:text-red-400"
+              title="Cerrar sesión"
+            >
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/>
+                <polyline points="16 17 21 12 16 7"/>
+                <line x1="21" y1="12" x2="9" y2="12"/>
+              </svg>
+            </button>
+          </div>
         </div>
 
         {/* Search */}
